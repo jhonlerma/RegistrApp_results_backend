@@ -11,19 +11,25 @@ class CandidateController():
         return list(self.repo.get_all())
 
     def get_by_id(self, id):
-        pass
+        return self.repo.get_by_id(id)
 
-    def get_by_document_id(self, document):
-        pass
+    # def get_by_document_id(self, document):
+    #     pass
 
-    def get_by_resolution(self, resolution):
-        pass
+    # def get_by_resolution(self, resolution):
+    #     pass
 
     def create(self, data):
-        pass
+        candidate = CandidateModel(data)
+        # todo or do never XD validate fields
+        return {
+            "id": self.repo.save(candidate)
+        }
 
     def update(self, id, data):
-        pass
+        candidate = CandidateModel(data)
+        self.repo.update(id, candidate)
+
 
     def delete(self, id):
-        pass
+        self.repo.delete(id)
