@@ -5,19 +5,29 @@ candidate_module = Blueprint('candidate', __name__)
 controller = CandidateController()
 
 
-@candidate_module.get('/')
+@candidate_module.get('/list')
 def get_candidates():
-    return jsonify(controller.get(request.args))
+    return jsonify(controller.get_all(request.args))
+
+
+@candidate_module.get('/<string:id>')
+def show_candidate_by_id(id):
+    return jsonify(controller.get_by_id(id))
+
+
+@candidate_module.get('/document/<string:document_document>')
+def show_candidate_by_document(document):
+    return jsonify(controller.get_by_document_id(document))
+
+
+@candidate_module.get('/resolution/<string:resolution>')
+def show_candidate_by_resolution(resolution):
+    return jsonify(controller.get_by_resolution(resolution))
 
 
 @candidate_module.post('/')
 def create_candidate():
     return jsonify(controller.create(request.get_json())), 201
-
-
-@candidate_module.get('/<string:id>')
-def show_candidate(id):
-    return jsonify(controller.get_by_id(id))
 
 
 @candidate_module.put('/<string:id>')
