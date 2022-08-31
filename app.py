@@ -1,10 +1,10 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv, dotenv_values
-from routes.candidate_routes import student_module
-from routes.political_party_routes import subject_module
-from routes.result_routes import department_module
-from routes.table_routes import enrollment_module
+from routes.candidate_routes import candidate_module
+from routes.political_party_routes import political_party_module
+from routes.result_routes import result_module
+from routes.table_routes import table_module
 # se cargan las configuraciones por defecto del archivo .env en la raiz del proyecto
 # load_dotenv() 
 
@@ -13,11 +13,11 @@ config = dotenv_values(".env")
 app = Flask(__name__)
 cors = CORS(app)
 
-# importar rutas de students
-app.register_blueprint(student_module, url_prefix='/estudiantes')
-app.register_blueprint(subject_module, url_prefix="/materias")
-app.register_blueprint(department_module, url_prefix="/facultades")
-app.register_blueprint(enrollment_module, url_prefix="/inscripciones")
+# importar rutas de candidates
+app.register_blueprint(candidate_module, url_prefix='/candidate')
+app.register_blueprint(political_party_module, url_prefix="/political_party")
+app.register_blueprint(result_module, url_prefix="/result")
+app.register_blueprint(table_module, url_prefix="/table")
 
 
 @app.route('/')
@@ -27,18 +27,3 @@ def hello_world():
 
 if __name__ == '__main__':
     app.run(host="localhost", port=config["PORT"], debug=True)
-
-
-config = dotenv_values('.env')
-app = Flask(__name__)
-cors = CORS(app)
-
-app.register_blueprint(student_module, url_prefix="/estudiantes")
-
-@app.route('/')
-def hello_world():
-  dictToReturn = {'message': 'Hola mundo!'}
-  return jsonify(dictToReturn)
-
-if __name__ == '__main__':
-  app.run(host='localhost', port=config["PORT"], debug=False)

@@ -1,19 +1,16 @@
 from flask import jsonify, request, Blueprint
 from controllers.candidate_controller import CandidateController
-from decorators.logger_decorator import logger
 
 candidate_module = Blueprint('candidate', __name__)
 controller = CandidateController()
 
 
 @candidate_module.get('/')
-@logger
 def get_candidates():
     return jsonify(controller.get(request.args))
 
 
 @candidate_module.post('/')
-@logger
 def create_candidate():
     return jsonify(controller.create(request.get_json())), 201
 

@@ -1,19 +1,16 @@
 from flask import jsonify, request, Blueprint
 from controllers.table_controller import TableController
-from decorators.logger_decorator import logger
 
 table_module = Blueprint('table', __name__)
 controller = TableController()
 
 
 @table_module.get('/')
-@logger
 def get_table():
     return jsonify(controller.get(request.args))
 
 
 @table_module.post('/')
-@logger
 def create_table():
     return jsonify(controller.create(request.get_json())), 201
 
