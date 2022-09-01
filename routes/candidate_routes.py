@@ -25,9 +25,9 @@ def show_candidate_by_id(id):
 #     return jsonify(controller.get_by_resolution(resolution))
 
 
-@candidate_module.post('/')
-def create_candidate():
-    return jsonify(controller.create(request.get_json())), 201
+@candidate_module.post('/<string:political_party_id>')
+def create_candidate(political_party_id):
+    return jsonify(controller.create(request.get_json(), political_party_id)), 201
 
 
 @candidate_module.put('/<string:id>')
