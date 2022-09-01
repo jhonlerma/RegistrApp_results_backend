@@ -7,7 +7,7 @@ controller = ResultController()
 
 @result_module.get('/list')
 def get_results():
-    return jsonify(controller.get(request.args))
+    return jsonify(controller.get_all(request.args))
 
 
 @result_module.post('/')
