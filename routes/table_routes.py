@@ -5,9 +5,9 @@ table_module = Blueprint('table', __name__)
 controller = TableController()
 
 
-@table_module.get('/')
+@table_module.get('/list')
 def get_table():
-    return jsonify(controller.get(request.args))
+    return jsonify(controller.get_all(request.args))
 
 
 @table_module.post('/')
