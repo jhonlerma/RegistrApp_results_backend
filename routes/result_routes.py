@@ -5,7 +5,7 @@ result_module = Blueprint('result', __name__)
 controller = ResultController()
 
 
-@result_module.get('/')
+@result_module.get('/list')
 def get_results():
     return jsonify(controller.get(request.args))
 
