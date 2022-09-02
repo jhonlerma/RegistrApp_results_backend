@@ -15,14 +15,14 @@ def show_candidate_by_id(id):
     return jsonify(controller.get_by_id(id))
 
 
-# @candidate_module.get('/document/<string:document_document>')
-# def show_candidate_by_document(document):
-#     return jsonify(controller.get_by_document_id(document))
+@candidate_module.get('/document/<string:document>')
+def show_candidate_by_document(document):
+    return jsonify(controller.get_by_document_id(document))
 
 
-# @candidate_module.get('/resolution/<string:resolution>')
-# def show_candidate_by_resolution(resolution):
-#     return jsonify(controller.get_by_resolution(resolution))
+@candidate_module.get('/resolution/<string:resolution>')
+def show_candidate_by_resolution(resolution):
+    return jsonify(controller.get_by_resolution(resolution))
 
 
 @candidate_module.post('/<string:political_party_id>')

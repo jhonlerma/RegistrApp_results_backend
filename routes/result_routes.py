@@ -10,7 +10,7 @@ def get_results():
     return jsonify(controller.get_all(request.args))
 
 
-@result_module.post('/table_id/<string:table_id>/candidate_id/<String:candidate_id>')
+@result_module.post('/table_id/<string:table_id>/candidate_id/<string:candidate_id>')
 def create_result(table_id, candidate_id):
     return jsonify(controller.create(request.get_json(), table_id, candidate_id))
 

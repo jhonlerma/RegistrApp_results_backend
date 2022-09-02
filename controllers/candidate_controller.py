@@ -17,11 +17,11 @@ class CandidateController():
     def get_by_id(self, id):
         return self.repo.get_by_id(id)
 
-    # def get_by_document_id(self, document):
-    #     pass
+    def get_by_document_id(self, document):
+        return self.repo.get_by_key("document", document)
 
-    # def get_by_resolution(self, resolution):
-    #     pass
+    def get_by_resolution(self, resolution):
+        return self.repo.get_by_key("resolution", resolution)
 
     def create(self, data, political_party_id):
         candidate = CandidateModel(data)
