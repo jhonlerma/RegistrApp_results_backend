@@ -9,7 +9,7 @@ class CandidateController():
 
     def __init__(self) -> None:
         self.repo = CandidateRepository()
-        self.repo_political_party = PoliticalPartyRepository()
+        self.political_party_repo = PoliticalPartyRepository()
 
     def get_all(self, args):
         return self.repo.get_all()
@@ -25,7 +25,7 @@ class CandidateController():
 
     def create(self, data, political_party_id):
         candidate = CandidateModel(data)
-        political_party = self.repo_political_party.get_by_id(political_party_id)
+        political_party = self.political_party_repo.get_by_id(political_party_id)
         candidate.political_party = PoliticalPartyModel(political_party)
         return {
         "id": self.repo.save(candidate)
