@@ -1,8 +1,8 @@
-from typing import TypeVar, Generic, get_args
-from db.db import Db
-from bson import DBRef
+from typing import TypeVar, Generic, List, get_origin, get_args
 from bson.objectid import ObjectId
-# from models.student_model import StudentModel
+from bson.dbref import DBRef
+from db.db import Db
+
 
 T = TypeVar('T')
 
@@ -48,22 +48,6 @@ class Repository(Generic[T]):
         result = self.transform_object_ids(result)
         result = self.get_values_db_ref(result)
         return result
-
-    def get_by_document(self, document):
-        # result = self.collection.find_one({"_id": ObjectId(id)})
-        # result["_id"] = result["_id"].__str__()
-        # result = self.transform_object_ids(result)
-        # result = self.get_values_db_ref(result)
-        # return result
-        pass
-
-    def get_by_resolution(self, resolution):
-        # result = self.collection.find_one({"_id": ObjectId(id)})
-        # result["_id"] = result["_id"].__str__()
-        # result = self.transform_object_ids(result)
-        # result = self.get_values_db_ref(result)
-        # return result
-        pass
 
     def save(self, item: T):
         item = self.transform_refs(item)
@@ -121,7 +105,7 @@ class Repository(Generic[T]):
         keys = x.keys()
         for k in keys:
             if isinstance(x[k], DBRef):
-                collection = self.db[x[k].collection]
+                collection = self.db.collection(x[k].collection)
                 valor = collection.find_one({"_id": ObjectId(x[k].id)})
                 valor["_id"] = valor["_id"].__str__()
                 x[k] = valor
@@ -140,15 +124,16 @@ class Repository(Generic[T]):
             newList.append(value)
         return newList
 
-    def transform_refs(self, item):
+    def transform_refs(self, item: T):
         theDict = item.__dict__
         keys = list(theDict.keys())
         for k in keys:
             if theDict[k].__str__().count("object") == 1:
+                print(getattr(item, k))
                 newObject = self.object_to_db_ref(getattr(item, k))
                 setattr(item, k, newObject)
         return item
 
     def object_to_db_ref(self, item: T):
-        nameCollection = item.__class__.__name__.lower()
+        nameCollection = item.__class__.__name__.lower().replace('model', '')
         return DBRef(nameCollection, ObjectId(item._id))

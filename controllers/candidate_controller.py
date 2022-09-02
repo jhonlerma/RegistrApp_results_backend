@@ -12,7 +12,7 @@ class CandidateController():
         self.repo_political_party = PoliticalPartyRepository()
 
     def get_all(self, args):
-        return list(self.repo.get_all())
+        return self.repo.get_all()
 
     def get_by_id(self, id):
         return self.repo.get_by_id(id)

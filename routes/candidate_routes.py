@@ -7,7 +7,7 @@ controller = CandidateController()
 
 @candidate_module.get('/list')
 def get_candidates():
-    return jsonify(controller.get_all(request.args))
+    return jsonify(controller.get_all(request.args)), 200
 
 
 @candidate_module.get('/<string:id>')
