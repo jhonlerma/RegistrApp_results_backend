@@ -5,9 +5,9 @@ political_party_module = Blueprint('political_party', __name__)
 controller = PoliticalPartyController()
 
 
-@political_party_module.get('/')
+@political_party_module.get('/list')
 def get_political_parties():
-    return jsonify(controller.get(request.args))
+    return jsonify(controller.get_all(request.args))
 
 
 @political_party_module.post('/')

@@ -49,6 +49,22 @@ class Repository(Generic[T]):
         result = self.get_values_db_ref(result)
         return result
 
+    def get_by_document(self, document):
+        # result = self.collection.find_one({"_id": ObjectId(id)})
+        # result["_id"] = result["_id"].__str__()
+        # result = self.transform_object_ids(result)
+        # result = self.get_values_db_ref(result)
+        # return result
+        pass
+
+    def get_by_resolution(self, resolution):
+        # result = self.collection.find_one({"_id": ObjectId(id)})
+        # result["_id"] = result["_id"].__str__()
+        # result = self.transform_object_ids(result)
+        # result = self.get_values_db_ref(result)
+        # return result
+        pass
+
     def save(self, item: T):
         item = self.transform_refs(item)
         id = ""
