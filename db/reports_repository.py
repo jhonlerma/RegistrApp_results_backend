@@ -19,10 +19,10 @@ class ReportsRepository(Repository[ResultModel]):
                 result['table'] = d['table']['numero']
                 result['_id'] = d['table']['_id']
                 result['results'] = {}
-            if d['candidate']['name'] not in result['results']:
-                result['results'].update({d['candidate']['name'] : 1})
+            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
+                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
             else:
-                result['results'][d['candidate']['name']] += 1
+                result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
 
         return result
 

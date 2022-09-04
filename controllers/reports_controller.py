@@ -13,9 +13,6 @@ class ReportsController():
 
     def __init__(self) -> None:
         self.repo = ReportsRepository()
-        self.table_repo = TableRepository()
-        self.candidate_repo = CandidateRepository()
-        self.political_party_repo = PoliticalPartyRepository()
 
     def get(self): # obtener total de cada uno de los candidatos
         return self.repo.reports()
