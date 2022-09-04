@@ -49,7 +49,7 @@ class Repository(Generic[T]):
         result = self.get_values_db_ref(result)
         return result
 
-    def get_by_key(self, key:str, value):
+    def get_one_by_key(self, key:str, value):
         result = self.collection.find_one({key: value})
         result["_id"] = result["_id"].__str__()
         result = self.transform_object_ids(result)
