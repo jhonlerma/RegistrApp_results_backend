@@ -24,8 +24,8 @@ class ReportsController():
 
         return self.repo.reports_by_table_id(args["table_id"])
 
-    # def get_by_candidate_id(self, args): # obtener total de votos por el id de candidato
-    #     return self.repo.reports_by_candidate_id(args['candidate_id'])
+    def get_by_candidate_id(self, args): # obtener total de votos por el id de candidato
+        return self.repo.reports_by_candidate_id(args['candidate_id'])
 
     # def get_by_political_party_id(self, args): # obtener total de votos por el id de partido politico
     #     return self.repo.reports_by_political_party_id(args['political_party_id'])

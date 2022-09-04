@@ -1,3 +1,4 @@
+from unittest import result
 from db.repository import Repository
 from models.result_model import ResultModel
 from bson import ObjectId
@@ -29,7 +30,21 @@ class ReportsRepository(Repository[ResultModel]):
 
     # obtener total de votos por el id de candidato
     def reports_by_candidate_id(self, candidate_id):
-        filter = {}
+        filter = {"candidate.$id": ObjectId(candidate_id)}
+        data = self.query(filter)
+        result = {}
+        for d in data:
+            if "candidate" not in result:
+                result['candidate'] = d['candidate']['name'] + " " + d['candidate']['last_name']
+                result['_id'] = d['candidate']['_id']
+                result['results'] = {}
+            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
+                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+            else:
+                result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
+
+        return result
+            
 
 
     # obtener total de un candidato en una mesa
