@@ -1,18 +1,20 @@
-from unittest import result
 from db.repository import Repository
 from models.result_model import ResultModel
 from bson import ObjectId
+
 
 class ReportsRepository(Repository[ResultModel]):
     def __init__(self):
         super().__init__()
 
-    def reports(self):  # obtener total de cada uno de los candidatos
+    # obtener total de cada uno de los candidatos
+    def reports(self):  
         data = self.get_all()
-        result = {"results" :{}}
+        result = {"results": {}}
         for d in data:
             if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
-                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+                result['results'].update(
+                    {d['candidate']['name'] + " " + d['candidate']['last_name']: 1})
             else:
                 result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
 
@@ -29,12 +31,12 @@ class ReportsRepository(Repository[ResultModel]):
                 result['_id'] = d['table']['_id']
                 result['results'] = {}
             if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
-                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+                result['results'].update(
+                    {d['candidate']['name'] + " " + d['candidate']['last_name']: 1})
             else:
                 result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
 
         return result
-
 
     # obtener total de votos por el id de candidato
     def reports_by_candidate_id(self, candidate_id):
@@ -43,13 +45,11 @@ class ReportsRepository(Repository[ResultModel]):
         result = {}
         for d in data:
             if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result:
-                result.update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+                result.update({d['candidate']['name'] + " " + d['candidate']['last_name']: 1})
             else:
                 result[d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
 
         return result
-            
-
 
     # obtener total de un candidato en una mesa
     def reports_by_table_candidate_id(self, table_id, candidate_id):
@@ -67,7 +67,7 @@ class ReportsRepository(Repository[ResultModel]):
                 result['_id'] = d['table']['_id']
                 result['results'] = {}
             if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
-                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name']: 1})
             else:
                 result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
 
