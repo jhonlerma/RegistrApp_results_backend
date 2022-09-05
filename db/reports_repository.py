@@ -55,7 +55,20 @@ class ReportsRepository(Repository[ResultModel]):
     def reports_by_table_candidate_id(self, table_id, candidate_id):
         filter = {
             "$and": [
-                {},
-                {}
+                {"candidate.$id": ObjectId(candidate_id)},
+                {"table.$id": ObjectId(table_id)}
             ]
         }
+        data = self.query(filter)
+        result = {}
+        for d in data:
+            if "table" not in result:
+                result['table'] = d['table']['numero']
+                result['_id'] = d['table']['_id']
+                result['results'] = {}
+            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
+                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+            else:
+                result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
+
+        return result
