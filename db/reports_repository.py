@@ -34,14 +34,10 @@ class ReportsRepository(Repository[ResultModel]):
         data = self.query(filter)
         result = {}
         for d in data:
-            if "candidate" not in result:
-                result['candidate'] = d['candidate']['name'] + " " + d['candidate']['last_name']
-                result['_id'] = d['candidate']['_id']
-                result['results'] = {}
-            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
-                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result:
+                result.update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
             else:
-                result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
+                result[d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
 
         return result
             
