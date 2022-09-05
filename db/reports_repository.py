@@ -8,7 +8,15 @@ class ReportsRepository(Repository[ResultModel]):
         super().__init__()
 
     def reports(self):  # obtener total de cada uno de los candidatos
-        filter = {}
+        data = self.get_all()
+        result = {"results" :{}}
+        for d in data:
+            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
+                result['results'].update({d['candidate']['name'] + " " + d['candidate']['last_name'] : 1})
+            else:
+                result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
+
+        return result
 
     # obtener total de cada uno de los candidatos por mesa
     def reports_by_table_id(self, table_id):
