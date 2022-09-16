@@ -1,5 +1,5 @@
 from typing import TypeVar, Generic, List, get_origin, get_args
-from bson.objectid import ObjectId
+from bson import ObjectId
 from bson.dbref import DBRef
 from db.db import Db
 
