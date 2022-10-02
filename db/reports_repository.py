@@ -1,6 +1,8 @@
+from typing import Counter
 from db.repository import Repository
 from models.result_model import ResultModel
 from bson import ObjectId
+from  collections import Counter
 
 
 class ReportsRepository(Repository[ResultModel]):
@@ -10,14 +12,18 @@ class ReportsRepository(Repository[ResultModel]):
     # obtener total de cada uno de los candidatos
     def reports(self):  
         data = self.get_all()
-        result = {"results": {}}
+        candidate_list = []
+        candidate_list_to = []
+        result = []
         for d in data:
-            if d['candidate']['name'] + " " + d['candidate']['last_name'] not in result['results']:
-                result['results'].update(
-                    {d['candidate']['name'] + " " + d['candidate']['last_name']: 1})
-            else:
-                result['results'][d['candidate']['name'] + " " + d['candidate']['last_name']] += 1
+            candidate_name = {'candidate': d['candidate']['name'] + " " + d['candidate']['last_name']}
+            candidate_list.append(candidate_name)
 
+        for candidate in candidate_list:
+            if candidate not in candidate_list_to:
+                result.append({'candidate': candidate['candidate'], 'votes': candidate_list.count(candidate)})
+                candidate_list_to.append(candidate)
+        
         return result
 
     # obtener total de cada uno de los candidatos por mesa
